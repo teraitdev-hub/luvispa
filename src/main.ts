@@ -9,6 +9,7 @@ const getBaseUrl = () => {
 };
 const base = getBaseUrl();
 const heroBg = `${base}images/hero-sanctuary-bg.jpg`;
+const heroBgMobile = `${base}images/hero-sanctuary-bg-mobile.jpg`;
 
 const logo = `${base}brand-logo-transparent.png`;
 const headerLogo = `${base}brand-logo-header-transparent.png`;
@@ -229,13 +230,16 @@ app.innerHTML = `
     <section class="hero-section" id="hero">
       <!-- Dedicated High-Visibility Hero Background Layer -->
       <div class="hero-bg-layer" aria-hidden="true">
-        <img 
-          src="${heroBg}" 
-          class="hero-bg-image" 
-          alt="Luvi Spa Sanctuary" 
-          loading="eager"
-          onerror="this.src='./images/hero-sanctuary-bg.jpg'" 
-        />
+        <picture class="hero-bg-picture">
+          <source media="(max-width: 768px)" srcset="${heroBgMobile}" />
+          <img 
+            src="${heroBg}" 
+            class="hero-bg-image" 
+            alt="Luvi Spa Sanctuary" 
+            loading="eager"
+            onerror="this.src='./images/hero-sanctuary-bg.jpg'" 
+          />
+        </picture>
         <div class="hero-bg-overlay"></div>
       </div>
       <div class="hero-container-fluid">
@@ -833,6 +837,12 @@ startRitualAutoPlay();
 // ==========================================================================
 
 function initScrollReveal() {
+  const heroSection = document.querySelector<HTMLElement>('.hero-section');
+  if (heroSection) {
+    // Visibly trigger hero entrance animation right after initial paint
+    setTimeout(() => heroSection.classList.add('hero-visible'), 180);
+  }
+
   const revealElements = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
   if (!revealElements.length) return;
 
@@ -845,17 +855,17 @@ function initScrollReveal() {
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
   );
 
   revealElements.forEach((el, index) => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-      // Element is visible on load: trigger with visible staggered entrance
-      setTimeout(() => el.classList.add('is-revealed'), 120 + (index % 5) * 80);
+    // Only pre-reveal elements inside the top 300px
+    if (rect.top >= 0 && rect.top < 300) {
+      setTimeout(() => el.classList.add('is-revealed'), 250);
     } else {
       if (el.classList.contains('service-card') || el.classList.contains('atmosphere-card') || el.classList.contains('stat-item')) {
-        const delay = (index % 6) * 0.12;
+        const delay = (index % 6) * 0.1;
         el.style.transitionDelay = `${delay}s`;
       }
       revealObserver.observe(el);

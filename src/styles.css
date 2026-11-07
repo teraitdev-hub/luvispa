@@ -2009,11 +2009,12 @@ img {
   .services-grid-6 {
     grid-template-columns: 1fr;
   }
+  /* Explicitly Keep Badges and Stats in Clean Horizontal Row */
   .about-badges-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr) !important;
   }
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(4, 1fr) !important;
   }
   .stat-item::after {
     display: none !important;
@@ -2695,5 +2696,182 @@ img {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
+  }
+}
+
+/* ==========================================================================
+   MOBILE HERO BACKDROP, HORIZONTAL GRIDS & HIGH-IMPACT TEXT ANIMATIONS
+   ========================================================================== */
+
+.hero-bg-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* Hero Section Slide-Reveal Classes */
+.hero-section .slide-inner {
+  display: inline-block;
+  transform: translateY(115%);
+  opacity: 0;
+  filter: blur(6px);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+.hero-section.hero-visible .slide-line:nth-child(1) .slide-inner {
+  transform: translateY(0%);
+  opacity: 1;
+  filter: blur(0px);
+  transition-delay: 0.15s;
+}
+
+.hero-section.hero-visible .slide-line:nth-child(2) .slide-inner {
+  transform: translateY(0%);
+  opacity: 1;
+  filter: blur(0px);
+  transition-delay: 0.38s;
+}
+
+.hero-section.hero-visible .hero-subtitle {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  filter: blur(0) !important;
+  transition: opacity 0.9s ease 0.6s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, filter 0.8s ease 0.6s;
+}
+
+@media (max-width: 768px) {
+  /* 1. Mobile Hero: Seamless vertical fit with mobile-tailored overlay */
+  .hero-section {
+    padding: clamp(5.2rem, 13vw, 6.8rem) 0 3.2rem !important;
+  }
+  .hero-bg-image {
+    object-position: center 35% !important;
+  }
+  .hero-bg-overlay {
+    background: linear-gradient(180deg, rgba(11, 10, 10, 0.72) 0%, rgba(11, 10, 10, 0.40) 45%, rgba(11, 10, 10, 0.88) 100%) !important;
+  }
+
+  /* 2. About Badges: Strictly Horizontal View */
+  .about-badges-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    margin-top: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .about-badge-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.8rem 0.3rem !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(226, 181, 68, 0.22) !important;
+    text-align: center !important;
+  }
+  .about-badge-icon {
+    width: 32px !important;
+    height: 32px !important;
+    margin: 0 auto 0.3rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .about-badge-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .about-badge-label {
+    font-size: clamp(0.68rem, 2.5vw, 0.78rem) !important;
+    font-weight: 600 !important;
+    line-height: 1.15 !important;
+    color: var(--text-secondary) !important;
+    white-space: normal !important;
+  }
+
+  /* 3. Stats (5k, 10, 20, 98%): Strictly Horizontal View */
+  .stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.35rem !important;
+    padding: 1.25rem 0.4rem !important;
+    width: 100% !important;
+  }
+  .stat-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 0.2rem 0.1rem !important;
+  }
+  .stat-item::after {
+    display: none !important;
+  }
+  .stat-number {
+    font-size: clamp(1.35rem, 5.2vw, 1.85rem) !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    margin-bottom: 0.25rem !important;
+    color: var(--color-gold) !important;
+  }
+  .stat-label {
+    font-size: clamp(0.56rem, 2.1vw, 0.72rem) !important;
+    line-height: 1.15 !important;
+    color: var(--text-muted) !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  /* 4. Obvious & Dramatic Mobile Text Appearing Animation */
+  .section-header-center .luxury-serif-eyebrow,
+  .about-top-left-header .luxury-serif-eyebrow {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+    letter-spacing: 0.28em;
+    transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .is-revealed .luxury-serif-eyebrow,
+  .is-revealed.luxury-serif-eyebrow {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  .section-title,
+  .about-poster-heading {
+    opacity: 0;
+    transform: translateY(32px);
+    filter: blur(6px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, 
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, 
+                filter 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  }
+  .is-revealed .section-title,
+  .is-revealed.section-title,
+  .is-revealed .about-poster-heading {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    filter: blur(0px) !important;
+  }
+
+  .section-subtitle,
+  .about-desc {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.85s ease 0.28s, 
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s;
+  }
+  .is-revealed .section-subtitle,
+  .is-revealed.section-subtitle,
+  .is-revealed .about-desc {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
 }
