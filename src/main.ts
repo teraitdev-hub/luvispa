@@ -1,10 +1,14 @@
 import './styles.css';
 
 const getBaseUrl = () => {
-  // Works with any repo name, custom domain, or local file preview
+  const p = typeof window !== 'undefined' ? window.location.pathname : '/';
+  if (p.includes('/luvispa')) {
+    return '/luvispa/';
+  }
   return './';
 };
 const base = getBaseUrl();
+const heroBg = `${base}images/hero-sanctuary-bg.jpg`;
 
 const logo = `${base}brand-logo-transparent.png`;
 const headerLogo = `${base}brand-logo-header-transparent.png`;
@@ -222,7 +226,18 @@ app.innerHTML = `
 
   <main>
     <!-- 1. Hero Section (Home) with Fitted Luxury Spa Backdrop -->
-    <section class="hero-section" id="hero" style="--hero-bg-url: url('${base}images/hero-sanctuary-bg.jpg');">
+    <section class="hero-section" id="hero">
+      <!-- Dedicated High-Visibility Hero Background Layer -->
+      <div class="hero-bg-layer" aria-hidden="true">
+        <img 
+          src="${heroBg}" 
+          class="hero-bg-image" 
+          alt="Luvi Spa Sanctuary" 
+          loading="eager"
+          onerror="this.src='./images/hero-sanctuary-bg.jpg'" 
+        />
+        <div class="hero-bg-overlay"></div>
+      </div>
       <div class="hero-container-fluid">
         <div class="hero-grid">
           <!-- Hero Left Content (Placed Cleanly with High-Contrast Scrim) -->
