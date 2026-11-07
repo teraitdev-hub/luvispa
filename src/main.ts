@@ -1,11 +1,8 @@
 import './styles.css';
 
 const getBaseUrl = () => {
-  const p = typeof window !== 'undefined' ? window.location.pathname : '/';
-  if (p.includes('/luvispa')) {
-    return '/luvispa/';
-  }
-  return p.endsWith('/') ? p : p.substring(0, p.lastIndexOf('/') + 1);
+  // Works with any repo name, custom domain, or local file preview
+  return './';
 };
 const base = getBaseUrl();
 
