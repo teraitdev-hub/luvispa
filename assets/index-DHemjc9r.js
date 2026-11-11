@@ -494,7 +494,7 @@
           <a href="tel:+919900677879">+91 99006 77879</a>
         </div>
         <div class="footer-compact-hours">
-          Visiting Hours: Monday – Sunday: 9:00 AM – 9:00 PM
+          Visiting Hours: Monday – Sunday: 10:30 AM – 9:00 PM
         </div>
         <div class="footer-compact-copy">
           &copy; 2026 Luvi Unisex Saloon & Spa. All rights reserved.
@@ -551,7 +551,7 @@
         <div class="form-group">
           <label for="booking-time">Preferred Time</label>
           <select id="booking-time" class="form-control">
-            <option value="Morning (9:00 AM - 12:00 PM)">Morning (9:00 AM - 12:00 PM)</option>
+            <option value="Morning (10:30 AM - 1:00 PM)">Morning (10:30 AM - 1:00 PM)</option>
             <option value="Afternoon (12:00 PM - 4:00 PM)">Afternoon (12:00 PM - 4:00 PM)</option>
             <option value="Evening (4:00 PM - 9:00 PM)">Evening (4:00 PM - 9:00 PM)</option>
           </select>
