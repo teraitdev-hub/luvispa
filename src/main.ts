@@ -489,6 +489,7 @@ app.innerHTML = `
                 loop
                 muted
                 playsinline
+                webkit-playsinline
                 poster="${aboutProductsImage}"
                 preload="auto" class="about-product-video"
               ></video>
@@ -1180,6 +1181,32 @@ if (document.readyState === 'loading') {
     });
   });
 
+  
+  // Seamless autoplay guarantee for About video across mobile & desktop browsers
+  const aboutVid = document.querySelector<HTMLVideoElement>('.about-product-video');
+  if (aboutVid) {
+    aboutVid.muted = true;
+    aboutVid.playsInline = true;
+    const playVideo = () => {
+      if (aboutVid.paused) {
+        aboutVid.play().catch(() => {});
+      }
+    };
+    playVideo();
+    document.addEventListener('touchstart', playVideo, { once: true, passive: true });
+    document.addEventListener('click', playVideo, { once: true, passive: true });
+    if ('IntersectionObserver' in window) {
+      const vidObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playVideo();
+          }
+        });
+      }, { threshold: 0.15 });
+      vidObserver.observe(aboutVid);
+    }
+  }
+
   initScrollReveal();
     initStatsCounters();
   });
@@ -1210,6 +1237,32 @@ if (document.readyState === 'loading') {
       }
     });
   });
+
+  
+  // Seamless autoplay guarantee for About video across mobile & desktop browsers
+  const aboutVid = document.querySelector<HTMLVideoElement>('.about-product-video');
+  if (aboutVid) {
+    aboutVid.muted = true;
+    aboutVid.playsInline = true;
+    const playVideo = () => {
+      if (aboutVid.paused) {
+        aboutVid.play().catch(() => {});
+      }
+    };
+    playVideo();
+    document.addEventListener('touchstart', playVideo, { once: true, passive: true });
+    document.addEventListener('click', playVideo, { once: true, passive: true });
+    if ('IntersectionObserver' in window) {
+      const vidObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playVideo();
+          }
+        });
+      }, { threshold: 0.15 });
+      vidObserver.observe(aboutVid);
+    }
+  }
 
   initScrollReveal();
   initStatsCounters();
