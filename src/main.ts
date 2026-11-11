@@ -155,6 +155,151 @@ const signatureRituals = [
   }
 ];
 
+
+interface TariffServiceItem {
+  id: string;
+  name: string;
+  desc: string;
+  tag?: string;
+  prices: { duration: string; price: number }[];
+}
+
+interface TariffCategory {
+  id: string;
+  name: string;
+  subtitle: string;
+  iconName: 'hot-stones' | 'branch' | 'skincare' | 'care';
+  items: TariffServiceItem[];
+}
+
+const tariffCategories: TariffCategory[] = [
+  {
+    id: 'massage',
+    name: 'Massage Therapies',
+    subtitle: 'Authentic therapeutic bodywork conducted in private sanitized suites with warm herbal oils.',
+    iconName: 'hot-stones',
+    items: [
+      {
+        id: 'deep-tissue',
+        name: 'Deep Tissue Massage',
+        desc: 'Focused neuromuscular pressure to dissolve chronic tension knots, shoulder stiffness, and postural fatigue.',
+        tag: 'Most Popular',
+        prices: [{ duration: '60 Min', price: 2000 }, { duration: '90 Min', price: 3000 }]
+      },
+      {
+        id: 'swedish',
+        name: 'Swedish Relaxation Massage',
+        desc: 'Classic European rhythmic long gliding strokes to enhance lymphatic circulation, soothe nerves, and induce peace.',
+        prices: [{ duration: '60 Min', price: 1800 }, { duration: '90 Min', price: 2500 }]
+      },
+      {
+        id: 'aroma',
+        name: 'Aromatherapy Healing Massage',
+        desc: 'Pure cold-pressed botanical essential elixirs warmed and smoothed across tension points for deep mental tranquility.',
+        tag: 'Botanical',
+        prices: [{ duration: '60 Min', price: 1800 }, { duration: '90 Min', price: 3000 }]
+      },
+      {
+        id: 'lomi-lomi',
+        name: 'Lomi Lomi Hawaiian Massage',
+        desc: 'Continuous wave-like rhythmic forearm motions balancing energy flow and delivering whole-body release.',
+        prices: [{ duration: '60 Min', price: 2000 }, { duration: '90 Min', price: 3000 }]
+      },
+      {
+        id: 'balinese',
+        name: 'Balinese / Gentle Relaxing Massage',
+        desc: 'Holistic fusion of gentle acupressure, gentle stretching, and soothing warm floral aroma oils.',
+        prices: [{ duration: '60 Min', price: 2000 }, { duration: '90 Min', price: 3000 }]
+      },
+      {
+        id: 'basic-massage',
+        name: 'Basic Full Body Massage',
+        desc: 'Essential full-body relaxation therapy targeting daily muscular stiffness and everyday stress.',
+        prices: [{ duration: '60 Min', price: 1800 }, { duration: '90 Min', price: 3000 }]
+      },
+      {
+        id: 'body-polish',
+        name: 'Body Polish Revival',
+        desc: 'Complete full-body gentle exfoliation and intense botanical hydration, leaving skin radiant and silky smooth.',
+        tag: 'Skin Glow',
+        prices: [{ duration: 'Full Session', price: 3000 }]
+      },
+      {
+        id: 'body-scrub',
+        name: 'Aromatic Mineral Body Scrub',
+        desc: 'Pure sea mineral crystals and Himalayan rose salts buffing away dead cells and restoring cellular vitality.',
+        prices: [{ duration: 'Full Session', price: 2000 }]
+      }
+    ]
+  },
+  {
+    id: 'hair-spa',
+    name: 'Hair Spa & Care',
+    subtitle: 'Nourishing salon scalp treatments, deep cream baths, and professional blow dry styling.',
+    iconName: 'branch',
+    items: [
+      {
+        id: 'basic-hair-spa',
+        name: 'Basic Nourishing Hair Spa',
+        desc: 'Deep-conditioning herbal cream massage, scalp steam infusion, and vitalizing rinse for soft, radiant hair.',
+        prices: [{ duration: 'Session', price: 1000 }]
+      },
+      {
+        id: 'hair-treatment',
+        name: 'Intense Hair & Scalp Treatment',
+        desc: 'Specialized therapy repairing split ends, severe frizz, and dry scalp while strengthening hair follicles.',
+        tag: 'Deep Repair',
+        prices: [{ duration: 'Therapy', price: 2000 }]
+      },
+      {
+        id: 'wash-blowing',
+        name: 'Hair Wash & Blow Dry / Styling',
+        desc: 'Relaxing botanical shampoo cleanse followed by professional blow dry, volume lift, and finishing gloss.',
+        prices: [{ duration: 'Styling', price: 1000 }]
+      },
+      {
+        id: 'only-wash',
+        name: 'Quick Botanical Hair Wash',
+        desc: 'Fast refreshing scalp cleanse with premium salon botanical shampoo and gentle conditioning.',
+        prices: [{ duration: 'Express', price: 300 }]
+      }
+    ]
+  },
+  {
+    id: 'gents-haircut',
+    name: 'Gents Grooming',
+    subtitle: 'Precision scissor styling, facial beard detailing, and clean luxury traditional shaves.',
+    iconName: 'care',
+    items: [
+      {
+        id: 'hair-cut',
+        name: 'Gents Hair Cut & Styling',
+        desc: 'Custom scissor & clipper precision haircut sculpted to your personal facial structure by senior stylists.',
+        tag: 'Signature',
+        prices: [{ duration: 'Cut & Style', price: 150 }]
+      },
+      {
+        id: 'beard',
+        name: 'Beard Trimming & Shaping',
+        desc: 'Sharp jawline symmetry, razor line detailing, and nourishing beard oil finish.',
+        prices: [{ duration: 'Sculpting', price: 100 }]
+      },
+      {
+        id: 'shaving',
+        name: 'Hot Towel Luxury Shave',
+        desc: 'Classic barbershop shave with warm steam prep, rich protective cream lather, and cooling aftershave balm.',
+        prices: [{ duration: 'Shave', price: 150 }]
+      },
+      {
+        id: 'clean-shave',
+        name: 'Quick Clean Shave',
+        desc: 'Smooth, clean single-pass razor shave for a fresh, polished daily appearance.',
+        prices: [{ duration: 'Express', price: 100 }]
+      }
+    ]
+  }
+];
+
 const app = document.querySelector<HTMLDivElement>('#app');
 if (!app) throw new Error('App root element not found');
 
@@ -171,6 +316,7 @@ app.innerHTML = `
           <a href="#hero" class="nav-link">Home</a>
           <a href="#about" class="nav-link">About</a>
           <a href="#services" class="nav-link">Services</a>
+          <a href="#menu" class="nav-link">Menu &amp; Tariffs</a>
         </div>
 
         <!-- Center: Transparent Brand Logo -->
@@ -215,6 +361,7 @@ app.innerHTML = `
         <a href="#hero" class="drawer-link js-close-drawer">Home</a>
         <a href="#about" class="drawer-link js-close-drawer">About Sanctuary</a>
         <a href="#services" class="drawer-link js-close-drawer">Spa Services</a>
+        <a href="#menu" class="drawer-link js-close-drawer">Treatment Menu &amp; Pricing</a>
         <a href="#rituals" class="drawer-link js-close-drawer">Signature Rituals</a>
         <a href="#atmosphere" class="drawer-link js-close-drawer">Atmosphere</a>
         <a href="#footer-contact" class="drawer-link js-close-drawer">Visit & Contact</a>
@@ -411,6 +558,81 @@ app.innerHTML = `
         </div>
       </div>
     </section>
+
+    <!-- 3.5 Treatment Menu & Tariffs (Client Official Rate Card & Salon Services) -->
+    <section class="menu-tariffs-section" id="menu">
+      <div class="section-container">
+        <div class="section-header-center reveal-on-scroll">
+          <div class="luxury-title-wrap center">
+            <span class="luxury-serif-eyebrow reveal-on-scroll"><span class="eyebrow-sparkle">✦</span> Treatment Menu &amp; Tariffs <span class="eyebrow-sparkle">✦</span></span>
+          </div>
+          <h2 class="section-title reveal-on-scroll">Spa &amp; Salon Price List</h2>
+          <p class="section-subtitle reveal-on-scroll">
+            Transparent pricing for authentic therapeutic bodywork, revitalizing hair spa, and precision grooming in Horamavu.
+          </p>
+        </div>
+
+        <!-- Luxury Interactive Tab Switcher -->
+        <div class="tariff-tabs-nav reveal-on-scroll" role="tablist">
+          ${tariffCategories.map((cat, idx) => `
+            <button 
+              type="button" 
+              class="tariff-tab-btn ${idx === 0 ? 'active' : ''}" 
+              data-tab="${cat.id}" 
+              role="tab" 
+              aria-selected="${idx === 0 ? 'true' : 'false'}"
+            >
+              <span class="tab-btn-icon">${icon(cat.iconName)}</span>
+              <span class="tab-btn-text">${cat.name}</span>
+            </button>
+          `).join('')}
+        </div>
+
+        <!-- Tariff Card Container (Compact & Contained in Single Screen) -->
+        <div class="tariff-panels-container reveal-on-scroll">
+          ${tariffCategories.map((cat, idx) => `
+            <div class="tariff-category-panel ${idx === 0 ? 'active' : ''}" id="panel-${cat.id}" role="tabpanel">
+              <div class="tariff-panel-header">
+                <div class="tariff-panel-badge">${icon(cat.iconName)} ${cat.name}</div>
+                <div class="tariff-panel-subtitle">${cat.subtitle}</div>
+              </div>
+
+              <div class="tariff-items-list">
+                ${cat.items.map((item) => `
+                  <div class="tariff-item-row">
+                    <div class="tariff-item-info">
+                      <div class="tariff-item-title-wrap">
+                        <h3 class="tariff-item-title">${item.name}</h3>
+                        ${item.tag ? `<span class="tariff-tag-badge">${item.tag}</span>` : ''}
+                      </div>
+                      <p class="tariff-item-desc">${item.desc}</p>
+                    </div>
+
+                    <div class="tariff-pricing-group">
+                      ${item.prices.map((p) => `
+                        <div class="tariff-price-chip">
+                          <span class="price-chip-duration">${p.duration}</span>
+                          <span class="price-chip-val">₹${p.price.toLocaleString('en-IN')}</span>
+                        </div>
+                      `).join('')}
+                      <button 
+                        type="button" 
+                        class="btn-tariff-book js-open-booking" 
+                        data-service="${item.name}"
+                        aria-label="Book ${item.name}"
+                      >
+                        Book ${icon('arrow')}
+                      </button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
 
     <!-- 4. Dedicated "Signature Rituals in Motion" Animated Showcase -->
     <section class="rituals-showcase-section" id="rituals">
@@ -931,10 +1153,64 @@ function initStatsCounters() {
 // Initialize scroll reveal and counter animations
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    initScrollReveal();
+    
+  // Interactive Tab Switcher for Treatment Menu & Tariffs
+  const tabBtns = document.querySelectorAll<HTMLButtonElement>('.tariff-tab-btn');
+  const tabPanels = document.querySelectorAll<HTMLElement>('.tariff-category-panel');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.getAttribute('data-tab');
+      if (!targetTab) return;
+
+      tabBtns.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      tabPanels.forEach((p) => {
+        p.classList.remove('active');
+      });
+      const activePanel = document.querySelector<HTMLElement>(`#panel-${targetTab}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
+    });
+  });
+
+  initScrollReveal();
     initStatsCounters();
   });
 } else {
+  
+  // Interactive Tab Switcher for Treatment Menu & Tariffs
+  const tabBtns = document.querySelectorAll<HTMLButtonElement>('.tariff-tab-btn');
+  const tabPanels = document.querySelectorAll<HTMLElement>('.tariff-category-panel');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.getAttribute('data-tab');
+      if (!targetTab) return;
+
+      tabBtns.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      tabPanels.forEach((p) => {
+        p.classList.remove('active');
+      });
+      const activePanel = document.querySelector<HTMLElement>(`#panel-${targetTab}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
+    });
+  });
+
   initScrollReveal();
   initStatsCounters();
 }
